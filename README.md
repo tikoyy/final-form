@@ -1,8 +1,3 @@
-
-# Project Title
-
-A brief description of what this project does and who it's for
-
 # REACT FEEDBACK TO WITH NOTION API
 
 This a simple feedback form that is built using React 18, node.js and Express and Notion API as the database
