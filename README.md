@@ -1,4 +1,4 @@
-# REACT FEEDBACK TO WITH NOTION API
+# REACT FEEDBACK FORM WITH NOTION API
 
 This a simple feedback form that is built using React 18, node.js and Express and Notion API as the database
 
