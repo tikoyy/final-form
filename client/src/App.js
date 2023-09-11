@@ -1,48 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
-import './App.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+import React, { useState, useEffect } from "react";
+import Axios from "axios"; 
+import "./App.css"; 
+import { ToastContainer, toast } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.min.css"; 
 
 function App() {
+  // State for form data and form reset
   const [formData, setFormData] = useState({
-    name: '',
-    emailAdd: '',
-    comment: '',
+    name: "",
+    emailAdd: "",
+    comment: "",
   });
-
   const [formReset, setFormReset] = useState(false);
 
+  // Effect to reset the form when formReset state changes
   useEffect(() => {
     if (formReset) {
       // Reset the form by setting formData to empty values
       setFormData({
-        name: '',
-        emailAdd: '',
-        comment: '',
+        name: "",
+        emailAdd: "",
+        comment: "",
       });
       setFormReset(false);
     }
   }, [formReset]);
 
+  // Function to validate email format
   const isValidEmail = (email) => {
-    // Regular expression for a valid email format
     const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     if (!emailRegex.test(email)) {
       return false;
     }
 
-    // Check for common email domains
     const commonDomains = [
-      'gmail.com',
-      'yahoo.com',
-      'outlook.com',
-      'icloud.com',
+      "gmail.com",
+      "yahoo.com",
+      "outlook.com",
+      "icloud.com",
     ];
-    const domain = email.split('@')[1];
+    const domain = email.split("@")[1];
     return commonDomains.includes(domain.toLowerCase());
   };
 
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -50,38 +51,40 @@ function App() {
 
     // Check if the email address is in a valid format
     if (!isValidEmail(emailAdd)) {
-      toast.error('Please check your email before submitting', {
-        className: 'error-toast',
+      toast.error("Please check your email before submitting", {
+        className: "error-toast",
       });
       return;
     }
 
     try {
-      // If all fields and email are valid, send the data to the server
-      await Axios.post('http://localhost:8000/NotionAPIPost', {
+      // If all fields and email are valid, send the data to the server using Axios
+      await Axios.post("http://localhost:8000/NotionAPIPost", {
         Name: name,
         Email: emailAdd,
         Message: comment,
       });
 
       // Show a success toast notification
-      toast.success('Form submitted successfully', {
-        className: 'success-toast',
+      toast.success("Form submitted successfully", {
+        className: "success-toast",
       });
 
       // Reset the form by setting formReset to true
       setFormReset(true);
     } catch (error) {
-      // Handle server errors
-      toast.error('Error submitting form', {
-        className: 'error-toast',
+      // Handle server errors and display an error toast
+      toast.error("Error submitting form", {
+        className: "error-toast",
       });
       console.error(error);
     }
   };
 
+  // Function to handle input field changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    // Update the corresponding field in the formData state
     setFormData({ ...formData, [name]: value });
   };
 
@@ -108,7 +111,7 @@ function App() {
               type="email"
               id="email"
               name="emailAdd"
-              placeholder="Enter you email"
+              placeholder="Enter your email"
               onChange={handleInputChange}
               required
               value={formData.emailAdd}
@@ -131,7 +134,7 @@ function App() {
         </div>
         <button type="submit">Submit</button>
       </form>
-      <ToastContainer />
+      <ToastContainer /> {/* Container for displaying toast notifications */}
     </div>
   );
 }

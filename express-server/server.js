@@ -1,4 +1,5 @@
 const express = require("express");
+const rateLimit = require("express-rate-limit");
 const { Client } = require("@notionhq/client");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -9,13 +10,23 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 
+// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
+// Notion setup
 const authToken = process.env.NOTION_INTEGRATION_TOKEN;
 const notionDbID = process.env.NOTION_DATABASE_ID;
 const notion = new Client({ auth: authToken });
 
+// Rate limiting middleware
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+});
+app.use("/NotionAPIPost", limiter);
+
+// API route for posting data to Notion
 app.post("/NotionAPIPost", async (req, res) => {
   try {
     const { Name, Email, Message } = req.body;
@@ -63,29 +74,6 @@ app.post("/NotionAPIPost", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
-
-// Enable this route if needed
-/*
-app.get('/NotionAPIGet', async (req, res) => {
-  try {
-    const response = await notion.databases.query({
-      database_id: notionDbID,
-      sorts: [
-        {
-          property: 'created_time',
-          direction: 'descending',
-        },
-      ],
-    });
-
-    res.json({ message: "Success", data: response.results });
-    console.log("Success");
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
-*/
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

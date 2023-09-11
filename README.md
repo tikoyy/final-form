@@ -39,6 +39,7 @@ Explain how to set up the project on a local machine. Include step-by-step instr
 3. Install backend dependencies
     ```powershell
    npm install express
+   npm install express-rate-limit
    npm install @notionhq/client
    npm install cors
    npm install body-parser
