@@ -1,3 +1,8 @@
+
+# Project Title
+
+A brief description of what this project does and who it's for
+
 # REACT FEEDBACK TO WITH NOTION API
 
 This a simple feedback form that is built using React 18, node.js and Express and Notion API as the database
@@ -15,7 +20,7 @@ This a simple feedback form that is built using React 18, node.js and Express an
 
 ## Prerequisites
 
-To start, here are the following requirement your local machine should have. 
+To start, here are the following requirements your local machine should have. 
 
 - Node.js and npm installed on your machine
 - A notion account with an integration set up with access to the NOTION API
@@ -31,15 +36,11 @@ Explain how to set up the project on a local machine. Include step-by-step instr
 
    ```bash
    git clone https://github.com/tikoyy/final-form.git
-
-
-
 2. Install front end dependecies
    ```powershell
    npm install react react-dom
    npm install axios
    npm install react-toastify
-
 3. Install backend dependencies
     ```powershell
    npm install express
@@ -47,7 +48,6 @@ Explain how to set up the project on a local machine. Include step-by-step instr
    npm install cors
    npm install body-parser
    npm install dotenv
-
 ### Configuration 
 
 1. Create _**'.env'**_ file in the _**'express-server'**_ directory and set the following variables
@@ -79,12 +79,21 @@ Replace _**'your_notion_api_key'**_  _**'your_notion_id'**_ with your actual gen
   - react-toastify: ^9.1.3
   
 - Backend:
-  - express: Latest version
-  - @notionhq/client: Latest version
-  - cors: Latest version
-  - body-parser: Latest version
+  - express: ^4.18.2
+  - @notionhq/client: ^2.2.13
+  - cors: ^2.8.5
+  - body-parser: ^1.20.2
 
 
 ## Contributing 
 
 Contributions and suggestions are always welcome!. Please try this on your local machine and see what can be imporoved. 
+
+
+## License
+
+The project is hereby listed and licensed under [MIT](https://choosealicense.com/licenses/mit/). See [LICENSE](https://github.com/tikoyy/final-form/blob/main/LICENSE.md) for details. 
+
+
+
+
