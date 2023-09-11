@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios"; 
-import "./App.css"; 
-import { ToastContainer, toast } from "react-toastify"; 
-import "react-toastify/dist/ReactToastify.min.css"; 
+import Axios from "axios";
+import "./App.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 function App() {
   // State for form data and form reset
@@ -38,6 +38,8 @@ function App() {
       "yahoo.com",
       "outlook.com",
       "icloud.com",
+      "trajector.com",
+      "trajectorservices.com"
     ];
     const domain = email.split("@")[1];
     return commonDomains.includes(domain.toLowerCase());
