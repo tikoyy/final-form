@@ -108,7 +108,7 @@ function App() {
               type="email"
               id="email"
               name="emailAdd"
-              placeholder="Email Address"
+              placeholder="Enter you email"
               onChange={handleInputChange}
               required
               value={formData.emailAdd}
