@@ -2,22 +2,25 @@ const express = require("express");
 const { Client } = require("@notionhq/client");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const jsonParser = bodyParser.json();
-const port = process.env.PORT || 8000;
-require("dotenv").config();
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const app = express();
+const port = process.env.PORT || 8000;
+
 app.use(cors());
+app.use(bodyParser.json());
 
 const authToken = process.env.NOTION_INTEGRATION_TOKEN;
 const notionDbID = process.env.NOTION_DATABASE_ID;
 const notion = new Client({ auth: authToken });
 
-app.post("/NotionAPIPost", jsonParser, async (req, res) => {
-  const { Name, Email, Message } = req.body;
-
+app.post("/NotionAPIPost", async (req, res) => {
   try {
-    // reCAPTCHA verification successful, continue with Notion API request
+    const { Name, Email, Message } = req.body;
+
+    // Create a new page in the Notion database
     const response = await notion.pages.create({
       parent: {
         database_id: notionDbID,
@@ -53,34 +56,37 @@ app.post("/NotionAPIPost", jsonParser, async (req, res) => {
       },
     });
 
-    res.send(response);
-    console.log("success");
+    res.status(201).json({ message: "Success", data: response });
+    console.log("Success");
   } catch (error) {
-    console.log(error);
-    res.status(500).json({message: 'Internal server error'});
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
-/*app.get('/NotionAPIGet', async(req, res) => {
-    try { 
-        const response = await notion.databases.query({
-            database_id: notionDbID, 
-            sorts: [
-                {
-                    timestamp: 'created_time',
-                    direction: 'descending',
-                },
-            ]
-        });
+// Enable this route if needed
+/*
+app.get('/NotionAPIGet', async (req, res) => {
+  try {
+    const response = await notion.databases.query({
+      database_id: notionDbID,
+      sorts: [
+        {
+          property: 'created_time',
+          direction: 'descending',
+        },
+      ],
+    });
 
-        res.send(response);
-        const {results} = response;
-        console.log("success");
-    } catch (error) {
-        console.log(error);
-    }
-}); */
+    res.json({ message: "Success", data: response.results });
+    console.log("Success");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+*/
 
 app.listen(port, () => {
-  console.log("server listening on port 8000!");
+  console.log(`Server is running on port ${port}`);
 });
