@@ -50,7 +50,7 @@ Explain how to set up the project on a local machine. Include step-by-step instr
    ```powershell
    NOTION_INTEGRATION_TOKEN = your_notion_api_key
    NOTION_DATABASE_ID = your_notion_id
-Replace _**'your_notion_api_key'**_  _**'your_notion_id'**_ with your actual generated Notion API key and database ID.
+Replace _**'your_notion_api_key'**_ and _**'your_notion_id'**_ with your actual generated Notion API key and database ID.
 
 ### Running the Application 
 
